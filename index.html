@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DiasporaConnect - Envoyez de l'argent au Benin sans frais excessifs</title>
+  <meta name="description" content="DiasporaConnect revolutionne les transferts d'argent vers le Benin. Frais reduits a moins de 1%, transferts instantanes, securises par la blockchain." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="container nav-container">
+      <a href="#" class="logo">
+        <span class="logo-icon">DC</span>
+        <span class="logo-text">DiasporaConnect</span>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#fonctionnalites">Fonctionnalites</a></li>
+        <li><a href="#tarifs">Tarifs</a></li>
+        <li><a href="#application">Application</a></li>
+        <li><a href="#securite">Securite</a></li>
+        <li><a href="#faq">FAQ</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a href="#" class="btn btn-ghost">Se connecter</a>
+        <a href="#" class="btn btn-primary">Commencer</a>
+      </div>
+      <button class="mobile-toggle" id="mobileToggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container hero-container">
+      <div class="hero-content">
+        <div class="hero-badge">
+          <span class="badge-icon">&#9889;</span>
+          Hackathon MIABE 2026 &mdash; Benin
+        </div>
+        <h1>Envoyez de l'argent au <span class="gradient-text">Benin</span> sans frais excessifs</h1>
+        <p class="hero-subtitle">DiasporaConnect reduit les frais de transfert de 7-15% a moins de 1% grace a la blockchain. Chaque dollar compte pour vos proches.</p>
+
+        <!-- Live Calculator -->
+        <div class="calculator">
+          <div class="calc-row">
+            <label>Vous envoyez</label>
+            <div class="calc-input-group">
+              <input type="number" id="sendAmount" value="200" min="1" />
+              <div class="currency-select">
+                <span class="flag">&#127482;&#127480;</span>
+                <select id="sendCurrency">
+                  <option value="USD" selected>USD</option>
+                  <option value="EUR">EUR</option>
+                  <option value="GBP">GBP</option>
+                  <option value="CAD">CAD</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="calc-swap">
+            <div class="swap-icon">&#8693;</div>
+          </div>
+          <div class="calc-row">
+            <label>Ils recoivent</label>
+            <div class="calc-input-group">
+              <span class="calc-result" id="receiveAmount">118 400</span>
+              <div class="currency-select receive">
+                <span class="flag">&#127463;&#127471;</span>
+                <span>XOF</span>
+              </div>
+            </div>
+          </div>
+          <div class="calc-fees">
+            <div class="fee-line fee-ours">
+              <span class="fee-check">&#10003;</span>
+              <span>Frais : <strong>0.8%</strong> &mdash; Soit <strong id="ourFee">1,60 USD</strong></span>
+            </div>
+            <div class="fee-line fee-theirs">
+              <span class="fee-bell">&#128276;</span>
+              <span>vs Western Union : jusqu'a <strong>22 USD</strong> de frais</span>
+            </div>
+          </div>
+          <a href="#" class="btn btn-primary btn-lg btn-full">Commencer un transfert &rarr;</a>
+        </div>
+        <p class="hero-trust">Rejoint par <strong>12 000+</strong> membres de la diaspora &bull; <span class="trust-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span> 4.9/5</p>
+      </div>
+      <div class="hero-visual">
+        <div class="phone-mockup phone-main">
+          <img src="assets/mockups/01-home-sender.png" alt="DiasporaConnect - Ecran d'accueil envoyeur" loading="eager" />
+        </div>
+        <div class="phone-mockup phone-secondary">
+          <img src="assets/mockups/06-receiver-home.png" alt="DiasporaConnect - Ecran d'accueil destinataire" loading="eager" />
+        </div>
+      </div>
+    </div>
+    <div class="hero-bg-shapes">
+      <div class="shape shape-1"></div>
+      <div class="shape shape-2"></div>
+      <div class="shape shape-3"></div>
+    </div>
+  </section>
+
+  <!-- Stats Banner -->
+  <section class="stats-banner">
+    <div class="container stats-container">
+      <div class="stat">
+        <span class="stat-number">0.8%</span>
+        <span class="stat-label">Frais moyens</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat">
+        <span class="stat-number">&lt;30 min</span>
+        <span class="stat-label">Delai de reception</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat">
+        <span class="stat-number">12 000+</span>
+        <span class="stat-label">Utilisateurs actifs</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat">
+        <span class="stat-number">100 M+</span>
+        <span class="stat-label">XOF transferes</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Problem Section -->
+  <section class="problem-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Le probleme</span>
+        <h2>Les frais de transfert appauvrissent vos proches</h2>
+        <p>Sur un envoi de 200 USD, les services traditionnels prelevent 14 a 30 USD en frais. Cet argent aurait pu payer un medicament ou une semaine de courses.</p>
+      </div>
+      <div class="problem-grid">
+        <div class="problem-card">
+          <div class="problem-icon problem-icon-red">&#128176;</div>
+          <h3>7 a 15% de frais</h3>
+          <p>Western Union et MoneyGram prelevent des frais exorbitants sur chaque envoi.</p>
+        </div>
+        <div class="problem-card">
+          <div class="problem-icon problem-icon-red">&#9203;</div>
+          <h3>2 a 5 jours d'attente</h3>
+          <p>Les transferts bancaires traditionnels prennent plusieurs jours.</p>
+        </div>
+        <div class="problem-card">
+          <div class="problem-icon problem-icon-red">&#128270;</div>
+          <h3>Frais caches</h3>
+          <p>Les taux de change gonfles masquent les vrais couts du transfert.</p>
+        </div>
+        <div class="problem-card highlight-card">
+          <div class="problem-icon problem-icon-green">&#9889;</div>
+          <h3>La solution DiasporaConnect</h3>
+          <p>Transferts a <strong>moins de 1%</strong> de frais, en <strong>moins de 30 minutes</strong>, securises par la blockchain.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features-section" id="fonctionnalites">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Fonctionnalites</span>
+        <h2>Tout ce qu'il faut pour envoyer et recevoir</h2>
+        <p>Une application pensee pour la diaspora africaine et ses proches au Benin.</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">&#128640;</div>
+          <h3>Transferts instantanes</h3>
+          <p>Envoyez de l'argent et votre destinataire le recoit en moins de 30 minutes, directement sur son mobile.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">&#128178;</div>
+          <h3>Frais quasi nuls</h3>
+          <p>Seulement 0.8% de frais, contre 7-15% chez les concurrents. Chaque centime compte.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">&#128274;</div>
+          <h3>Securise par la blockchain</h3>
+          <p>Chiffrement de bout en bout et tracabilite complete de chaque transaction.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">&#128241;</div>
+          <h3>Mobile Money integre</h3>
+          <p>Retrait direct via Mobile Money (MTN, Moov) couvrant 82% des adultes beninois.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">&#127760;</div>
+          <h3>Taux en temps reel</h3>
+          <p>Taux de change du marche affiches en direct. Pas de majoration cachee.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">&#128100;</div>
+          <h3>KYC verifie</h3>
+          <p>Verification d'identite rapide et conforme aux reglementations internationales.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing Comparison -->
+  <section class="pricing-section" id="tarifs">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Comparaison</span>
+        <h2>Comparez et economisez</h2>
+        <p>Voyez combien vous economisez sur un transfert de 200 USD vers le Benin.</p>
+      </div>
+      <div class="pricing-table-wrapper">
+        <table class="pricing-table">
+          <thead>
+            <tr>
+              <th>Service</th>
+              <th>Frais</th>
+              <th>Taux de change</th>
+              <th>Le destinataire recoit</th>
+              <th>Delai</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="pricing-highlight">
+              <td>
+                <div class="provider-name">
+                  <span class="provider-logo dc-logo">DC</span>
+                  DiasporaConnect
+                </div>
+              </td>
+              <td><strong class="green">1,60 USD (0.8%)</strong></td>
+              <td>592 XOF/USD</td>
+              <td><strong class="green">118 400 XOF</strong></td>
+              <td><strong class="green">&lt; 30 min</strong></td>
+            </tr>
+            <tr>
+              <td>
+                <div class="provider-name">
+                  <span class="provider-logo wu-logo">WU</span>
+                  Western Union
+                </div>
+              </td>
+              <td class="red">22 USD (11%)</td>
+              <td>580 XOF/USD</td>
+              <td>103 240 XOF</td>
+              <td>1-3 jours</td>
+            </tr>
+            <tr>
+              <td>
+                <div class="provider-name">
+                  <span class="provider-logo mg-logo">MG</span>
+                  MoneyGram
+                </div>
+              </td>
+              <td class="red">18 USD (9%)</td>
+              <td>582 XOF/USD</td>
+              <td>105 924 XOF</td>
+              <td>1-2 jours</td>
+            </tr>
+            <tr>
+              <td>
+                <div class="provider-name">
+                  <span class="provider-logo bank-logo">BQ</span>
+                  Banque traditionnelle
+                </div>
+              </td>
+              <td class="red">30 USD (15%)</td>
+              <td>575 XOF/USD</td>
+              <td>97 750 XOF</td>
+              <td>3-5 jours</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="savings-callout">
+        <div class="savings-icon">&#128176;</div>
+        <div>
+          <strong>Economisez jusqu'a 20 650 XOF</strong> sur chaque transfert de 200 USD par rapport a une banque traditionnelle.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- App Showcase / Mockups -->
+  <section class="showcase-section" id="application">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">L'application</span>
+        <h2>Decouvrez DiasporaConnect en action</h2>
+        <p>Une experience fluide, du premier envoi a la reception instantanee.</p>
+      </div>
+      <div class="showcase-flow">
+        <div class="showcase-step">
+          <div class="step-number">1</div>
+          <div class="phone-mockup showcase-phone">
+            <img src="assets/mockups/01-home-sender.png" alt="Tableau de bord envoyeur" loading="lazy" />
+          </div>
+          <h3>Choisissez le montant</h3>
+          <p>Entrez le montant et voyez instantanement combien votre proche recevra.</p>
+        </div>
+        <div class="showcase-connector"></div>
+        <div class="showcase-step">
+          <div class="step-number">2</div>
+          <div class="phone-mockup showcase-phone">
+            <img src="assets/mockups/02-new-transfer.png" alt="Nouveau transfert" loading="lazy" />
+          </div>
+          <h3>Confirmez le transfert</h3>
+          <p>Taux de change en temps reel et frais transparents avant l'envoi.</p>
+        </div>
+        <div class="showcase-connector"></div>
+        <div class="showcase-step">
+          <div class="step-number">3</div>
+          <div class="phone-mockup showcase-phone">
+            <img src="assets/mockups/03-transfer-summary.png" alt="Resume des frais" loading="lazy" />
+          </div>
+          <h3>Resume et securite</h3>
+          <p>Transaction securisee avec chiffrement de bout en bout et resume des frais.</p>
+        </div>
+        <div class="showcase-connector"></div>
+        <div class="showcase-step">
+          <div class="step-number">4</div>
+          <div class="phone-mockup showcase-phone">
+            <img src="assets/mockups/04-transfer-sent.png" alt="Transfert envoye" loading="lazy" />
+          </div>
+          <h3>Transfert envoye !</h3>
+          <p>Confirmation instantanee avec ID de transaction et statut en temps reel.</p>
+        </div>
+      </div>
+
+      <!-- Dual screens -->
+      <div class="dual-screens">
+        <div class="dual-screen-item">
+          <div class="phone-mockup showcase-phone">
+            <img src="assets/mockups/05-profile.png" alt="Profil utilisateur" loading="lazy" />
+          </div>
+          <h3>Profil verifie</h3>
+          <p>KYC integre, statistiques d'envoi et gestion du compte en un seul endroit.</p>
+        </div>
+        <div class="dual-screen-item">
+          <div class="phone-mockup showcase-phone">
+            <img src="assets/mockups/06-receiver-home.png" alt="Ecran destinataire" loading="lazy" />
+          </div>
+          <h3>Cote destinataire</h3>
+          <p>Votre proche voit son solde, recoit les fonds et peut payer ses factures.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Security Section -->
+  <section class="security-section" id="securite">
+    <div class="container">
+      <div class="security-grid">
+        <div class="security-content">
+          <span class="section-tag">Securite</span>
+          <h2>La blockchain au service de la confiance</h2>
+          <p>DiasporaConnect utilise la technologie blockchain pour garantir des transferts transparents, tracables et securises.</p>
+          <ul class="security-list">
+            <li>
+              <span class="check-icon">&#10003;</span>
+              <div>
+                <strong>Chiffrement bout en bout</strong>
+                <p>Vos donnees et transactions sont protegees par un chiffrement de niveau bancaire.</p>
+              </div>
+            </li>
+            <li>
+              <span class="check-icon">&#10003;</span>
+              <div>
+                <strong>Tracabilite blockchain</strong>
+                <p>Chaque transaction est enregistree de maniere immuable sur la blockchain.</p>
+              </div>
+            </li>
+            <li>
+              <span class="check-icon">&#10003;</span>
+              <div>
+                <strong>Conformite KYC/AML</strong>
+                <p>Verification d'identite et conformite aux reglementations anti-blanchiment.</p>
+              </div>
+            </li>
+            <li>
+              <span class="check-icon">&#10003;</span>
+              <div>
+                <strong>Support 24/7</strong>
+                <p>Notre equipe est disponible a tout moment pour vous accompagner.</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="security-visual">
+          <div class="security-card">
+            <div class="security-card-icon">&#128737;</div>
+            <h3>Transaction securisee</h3>
+            <p>Chiffrement de bout en bout</p>
+            <div class="security-animation">
+              <div class="pulse-ring"></div>
+              <div class="pulse-ring delay-1"></div>
+              <div class="pulse-ring delay-2"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ODD Section -->
+  <section class="odd-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Impact social</span>
+        <h2>Aligne sur les Objectifs de Developpement Durable</h2>
+        <p>DiasporaConnect contribue directement a trois ODD de l'ONU.</p>
+      </div>
+      <div class="odd-grid">
+        <div class="odd-card odd-1">
+          <div class="odd-number">ODD 1</div>
+          <h3>Fin de la pauvrete</h3>
+          <p>Maximiser chaque dollar envoye pour ameliorer les conditions de vie des familles.</p>
+        </div>
+        <div class="odd-card odd-8">
+          <div class="odd-number">ODD 8</div>
+          <h3>Travail decent</h3>
+          <p>Stimuler l'economie locale grace a des transferts plus efficaces.</p>
+        </div>
+        <div class="odd-card odd-10">
+          <div class="odd-number">ODD 10</div>
+          <h3>Inegalites reduites</h3>
+          <p>Reduire les frais de transfert a 3% maximum, conformement a l'objectif ONU 2030.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="testimonials-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Temoignages</span>
+        <h2>Ils nous font confiance</h2>
+      </div>
+      <div class="testimonials-grid">
+        <div class="testimonial-card">
+          <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p>"Avant, j'envoyais 200 USD et ma mere ne recevait que 170 USD. Avec DiasporaConnect, elle recoit presque tout. C'est revolutionnaire."</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">AM</div>
+            <div>
+              <strong>Aminata M.</strong>
+              <span>Paris, France</span>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p>"Le transfert est arrive en 15 minutes. Mon frere a pu payer ses frais de scolarite le jour meme. Merci DiasporaConnect !"</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">KM</div>
+            <div>
+              <strong>Kofi M.</strong>
+              <span>New York, USA</span>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p>"L'application est simple et transparente. Je vois exactement les frais et le taux de change. Plus de mauvaises surprises."</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">FD</div>
+            <div>
+              <strong>Fatou D.</strong>
+              <span>Bruxelles, Belgique</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq-section" id="faq">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">FAQ</span>
+        <h2>Questions frequentes</h2>
+      </div>
+      <div class="faq-list">
+        <details class="faq-item">
+          <summary>Comment DiasporaConnect reduit-il les frais a moins de 1% ?</summary>
+          <p>Nous utilisons la technologie blockchain pour eliminer les intermediaires couteux. Les seuls frais sont les couts de transaction du reseau, bien inferieurs aux commissions des services traditionnels.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Comment mon proche au Benin recoit-il l'argent ?</summary>
+          <p>Le destinataire recoit les fonds directement sur son mobile via Mobile Money (MTN, Moov). Il peut ensuite retirer l'argent ou payer ses factures depuis l'application.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Combien de temps prend un transfert ?</summary>
+          <p>La plupart des transferts arrivent en moins de 30 minutes. Dans certains cas, la reception peut prendre jusqu'a 1 heure selon le reseau mobile.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Mes donnees sont-elles en securite ?</summary>
+          <p>Absolument. Nous utilisons un chiffrement de bout en bout et la tracabilite blockchain pour garantir la securite de chaque transaction. Notre systeme est conforme aux normes KYC/AML internationales.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Depuis quels pays puis-je envoyer de l'argent ?</summary>
+          <p>DiasporaConnect est disponible depuis la France, les Etats-Unis, le Canada, la Belgique, l'Allemagne et le Royaume-Uni. Nous ajoutons regulierement de nouveaux pays.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Y a-t-il un montant minimum ou maximum ?</summary>
+          <p>Le montant minimum est de 5 USD/EUR. Le montant maximum depend de votre niveau de verification KYC. Avec une verification complete, vous pouvez envoyer jusqu'a 10 000 USD/EUR par transaction.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-content">
+        <h2>Pret a envoyer de l'argent sans frais excessifs ?</h2>
+        <p>Rejoignez 12 000+ membres de la diaspora qui ont deja choisi DiasporaConnect.</p>
+        <div class="cta-buttons">
+          <a href="#" class="btn btn-white btn-lg">Commencer gratuitement &rarr;</a>
+          <a href="#tarifs" class="btn btn-outline-white btn-lg">Voir les tarifs</a>
+        </div>
+        <div class="cta-badges">
+          <div class="badge-item">&#128274; Securise</div>
+          <div class="badge-item">&#9889; Rapide</div>
+          <div class="badge-item">&#128176; Economique</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="#" class="logo">
+            <span class="logo-icon">DC</span>
+            <span class="logo-text">DiasporaConnect</span>
+          </a>
+          <p>La blockchain au service de la diaspora africaine. Transferts rapides, securises et quasi gratuits vers le Benin.</p>
+          <div class="footer-social">
+            <a href="#" aria-label="Twitter">&#120143;</a>
+            <a href="#" aria-label="LinkedIn">in</a>
+            <a href="#" aria-label="Instagram">&#9901;</a>
+          </div>
+        </div>
+        <div class="footer-links">
+          <h4>Produit</h4>
+          <ul>
+            <li><a href="#fonctionnalites">Fonctionnalites</a></li>
+            <li><a href="#tarifs">Tarifs</a></li>
+            <li><a href="#securite">Securite</a></li>
+            <li><a href="#faq">FAQ</a></li>
+          </ul>
+        </div>
+        <div class="footer-links">
+          <h4>Entreprise</h4>
+          <ul>
+            <li><a href="#">A propos</a></li>
+            <li><a href="#">Carrieres</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Presse</a></li>
+          </ul>
+        </div>
+        <div class="footer-links">
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="#">Conditions d'utilisation</a></li>
+            <li><a href="#">Politique de confidentialite</a></li>
+            <li><a href="#">Mentions legales</a></li>
+            <li><a href="#">Cookies</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 DiasporaConnect &mdash; MIABE Hackathon 2026 | Darollo Technologies Corporation</p>
+        <p>ODD 1 &bull; ODD 8 &bull; ODD 10</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
