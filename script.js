@@ -1,5 +1,5 @@
 /* ============================================================
-   DiasporaConnect — Landing Page Logic
+   DiasporaConnect — Landing Page Logic (Finno Style)
    ============================================================ */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -19,13 +19,13 @@ document.addEventListener('DOMContentLoaded', () => {
     mobileToggle.addEventListener('click', () => {
       mobileToggle.classList.toggle('open');
       navLinks.classList.toggle('active');
-      navActions.classList.toggle('active');
+      navActions?.classList.toggle('active');
     });
     navLinks?.querySelectorAll('a').forEach(a => {
       a.addEventListener('click', () => {
         mobileToggle.classList.remove('open');
         navLinks.classList.remove('active');
-        navActions.classList.remove('active');
+        navActions?.classList.remove('active');
       });
     });
   }
@@ -72,36 +72,17 @@ document.addEventListener('DOMContentLoaded', () => {
   if (window.gsap && window.ScrollTrigger) {
     gsap.registerPlugin(ScrollTrigger);
 
-    // Hero fade in
-    gsap.from('.hero-badge', { opacity: 0, y: 20, duration: .6, delay: .2 });
-    gsap.from('.hero h1', { opacity: 0, y: 30, duration: .8, delay: .3, ease: 'power3.out' });
-    gsap.from('.hero-subtitle', { opacity: 0, y: 25, duration: .7, delay: .45, ease: 'power3.out' });
-    gsap.from('.calculator', { opacity: 0, y: 40, duration: .8, delay: .6, ease: 'power3.out' });
-    gsap.from('.hero-trust', { opacity: 0, y: 15, duration: .6, delay: .9 });
-    gsap.from('.hero-visual', { opacity: 0, x: 60, duration: 1, delay: .5, ease: 'power3.out' });
-
-    // Stat counter animation
-    document.querySelectorAll('.stat-number').forEach(el => {
-      const target = parseFloat(el.dataset.target);
-      const isDecimal = String(target).includes('.');
-      ScrollTrigger.create({
-        trigger: el,
-        start: 'top 90%',
-        onEnter: () => {
-          gsap.to(el, {
-            innerText: target,
-            duration: 1.5,
-            snap: isDecimal ? { innerText: .1 } : { innerText: 1 },
-            ease: 'power2.out',
-            onUpdate() {
-              const v = parseFloat(el.innerText);
-              el.innerText = isDecimal ? v.toFixed(1) : Math.round(v);
-            }
-          });
-        },
-        once: true
-      });
-    });
+    // Hero staggered entrance
+    const heroTl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+    heroTl
+      .from('.hero-badge', { opacity: 0, y: 20, duration: .5 })
+      .from('.hero h1', { opacity: 0, y: 30, duration: .7 }, '-=.3')
+      .from('.hero-subtitle', { opacity: 0, y: 25, duration: .6 }, '-=.4')
+      .from('.hero-buttons', { opacity: 0, y: 20, duration: .5 }, '-=.3')
+      .from('.iphone-hero-main', { opacity: 0, y: 60, duration: .8 }, '-=.5')
+      .from('.iphone-hero-left', { opacity: 0, x: -40, y: 40, duration: .7 }, '-=.5')
+      .from('.iphone-hero-right', { opacity: 0, x: 40, y: 40, duration: .7 }, '-=.6')
+      .from('.hero-float-card', { opacity: 0, scale: .8, duration: .5, stagger: .15 }, '-=.4');
 
     // Section reveal animations
     document.querySelectorAll('[data-animate]').forEach(el => {
@@ -110,7 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const props = { opacity: 0, duration: .7, delay, ease: 'power3.out' };
 
       if (anim === 'fade-up') { props.y = 40; }
-      else if (anim === 'fade-left') { props.x = 40; }
+      else if (anim === 'fade-left') { props.x = 50; }
       else if (anim === 'scale-up') { props.scale = .9; }
 
       ScrollTrigger.create({
@@ -121,14 +102,6 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
 
-    // Parallax orbs
-    gsap.to('.orb-1', { y: -80, scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1 } });
-    gsap.to('.orb-2', { y: 60, scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1 } });
-
-    // Phone parallax
-    gsap.to('.iphone-main', { y: -30, scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1 } });
-    gsap.to('.iphone-secondary', { y: 20, scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1 } });
-
     // Showcase staggered entrance
     document.querySelectorAll('.showcase-phones').forEach(container => {
       const items = container.querySelectorAll('.showcase-item');
@@ -136,10 +109,14 @@ document.addEventListener('DOMContentLoaded', () => {
         trigger: container,
         start: 'top 85%',
         onEnter: () => {
-          gsap.from(items, { opacity: 0, y: 50, scale: .92, duration: .6, stagger: .12, ease: 'power3.out' });
+          gsap.from(items, { opacity: 0, y: 50, scale: .92, duration: .6, stagger: .1, ease: 'power3.out' });
         },
         once: true
       });
     });
+
+    // Parallax orbs
+    gsap.to('.orb-1', { y: -80, scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1 } });
+    gsap.to('.orb-2', { y: 60, scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1 } });
   }
 });
