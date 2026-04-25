@@ -108,11 +108,17 @@
     <div class="hero-visual">
       <div class="hero-glow"></div>
       <div class="hero-phone-group">
-        <div class="phone-frame phone-main">
-          <img src="assets/screens/home-sender.png" alt="DiasporaConnect - Accueil Envoyeur" onerror="this.parentElement.innerHTML='<div class=phone-placeholder><span>Portail Diaspora</span></div>'"/>
+        <div class="iphone-frame iphone-main">
+          <div class="iphone-notch"></div>
+          <div class="iphone-screen">
+            <img src="assets/screens/diaspora-home.png" alt="DiasporaConnect - Accueil Envoyeur"/>
+          </div>
         </div>
-        <div class="phone-frame phone-secondary">
-          <img src="assets/screens/home-receiver.png" alt="DiasporaConnect - Accueil Destinataire" onerror="this.parentElement.innerHTML='<div class=phone-placeholder><span>Portail Benin</span></div>'"/>
+        <div class="iphone-frame iphone-secondary">
+          <div class="iphone-notch"></div>
+          <div class="iphone-screen">
+            <img src="assets/screens/benin-home.png" alt="DiasporaConnect - Accueil Destinataire"/>
+          </div>
         </div>
       </div>
     </div>
@@ -246,56 +252,77 @@
   </div>
 </section>
 
-<!-- ===== DEMO APP ===== -->
-<section class="demo-section" id="demo" data-animate-section>
+<!-- ===== APP SHOWCASE ===== -->
+<section class="showcase-section" id="demo" data-animate-section>
   <div class="container">
     <div class="section-header">
-      <span class="section-tag">Testez l'application</span>
+      <span class="section-tag">L'application</span>
       <h2>Decouvrez DiasporaConnect en action</h2>
-      <p>Naviguez dans le prototype comme sur un vrai telephone. Deux portails : Diaspora et Benin.</p>
+      <p>Deux portails complets : un pour envoyer, un pour recevoir. Testez le prototype interactif.</p>
     </div>
 
-    <div class="demo-wrapper">
-      <!-- Phone Frame with live iframe -->
-      <div class="demo-phone" data-animate="fade-up">
-        <div class="demo-phone-frame">
-          <div class="demo-phone-notch"></div>
-          <div class="demo-phone-screen">
-            <iframe src="app.html" class="demo-iframe" title="DiasporaConnect Prototype"></iframe>
+    <!-- Diaspora Portal Showcase -->
+    <div class="showcase-portal" data-animate="fade-up">
+      <div class="showcase-label showcase-label-orange">
+        <i data-lucide="plane" style="width:18px;height:18px;"></i>
+        <span>Portail Diaspora — Envoyez de l'argent</span>
+      </div>
+      <div class="showcase-scroll">
+        <div class="showcase-phones">
+          <div class="showcase-item">
+            <div class="iphone-frame-sm"><div class="iphone-notch-sm"></div><div class="iphone-screen-sm"><img src="assets/screens/diaspora-home.png" alt="Accueil"/></div></div>
+            <span class="showcase-caption">Accueil</span>
+          </div>
+          <div class="showcase-item">
+            <div class="iphone-frame-sm"><div class="iphone-notch-sm"></div><div class="iphone-screen-sm"><img src="assets/screens/diaspora-transfer.png" alt="Transfert"/></div></div>
+            <span class="showcase-caption">Nouveau transfert</span>
+          </div>
+          <div class="showcase-item">
+            <div class="iphone-frame-sm"><div class="iphone-notch-sm"></div><div class="iphone-screen-sm"><img src="assets/screens/diaspora-summary.png" alt="Resume"/></div></div>
+            <span class="showcase-caption">Resume</span>
+          </div>
+          <div class="showcase-item">
+            <div class="iphone-frame-sm"><div class="iphone-notch-sm"></div><div class="iphone-screen-sm"><img src="assets/screens/diaspora-sent.png" alt="Confirme"/></div></div>
+            <span class="showcase-caption">Confirmation</span>
+          </div>
+          <div class="showcase-item">
+            <div class="iphone-frame-sm"><div class="iphone-notch-sm"></div><div class="iphone-screen-sm"><img src="assets/screens/diaspora-profile.png" alt="Profil"/></div></div>
+            <span class="showcase-caption">Profil</span>
           </div>
         </div>
-        <a href="app.html" class="btn btn-primary btn-lg demo-cta" target="_blank">
-          <i data-lucide="maximize-2" style="width:18px;height:18px;"></i> Ouvrir en plein ecran
-        </a>
       </div>
+    </div>
 
-      <!-- Flow Description -->
-      <div class="demo-flow" data-animate="fade-left">
-        <div class="flow-card-big">
-          <div class="flow-icon flow-icon-orange"><i data-lucide="plane"></i></div>
-          <div>
-            <h3>Portail Diaspora</h3>
-            <p>Envoyez de l'argent depuis l'etranger</p>
+    <!-- Benin Portal Showcase -->
+    <div class="showcase-portal" data-animate="fade-up" data-delay=".15">
+      <div class="showcase-label showcase-label-green">
+        <i data-lucide="map-pin" style="width:18px;height:18px;"></i>
+        <span>Portail Beninois — Recevez et payez</span>
+      </div>
+      <div class="showcase-scroll">
+        <div class="showcase-phones">
+          <div class="showcase-item">
+            <div class="iphone-frame-sm"><div class="iphone-notch-sm"></div><div class="iphone-screen-sm"><img src="assets/screens/benin-home.png" alt="Accueil Benin"/></div></div>
+            <span class="showcase-caption">Accueil</span>
           </div>
-        </div>
-        <div class="flow-steps">
-          <div class="flow-step"><div class="flow-num">1</div><div><strong>Tableau de bord</strong><p>Calculateur en temps reel, historique des transferts</p></div></div>
-          <div class="flow-step"><div class="flow-num">2</div><div><strong>Nouveau transfert</strong><p>Saisissez le montant, choisissez la devise, taux live</p></div></div>
-          <div class="flow-step"><div class="flow-num">3</div><div><strong>Resume & securite</strong><p>Verifiez les frais, le montant recu, chiffrement blockchain</p></div></div>
-          <div class="flow-step"><div class="flow-num">4</div><div><strong>Confirmation</strong><p>ID transaction, statut en temps reel, arrivee estimee</p></div></div>
-        </div>
-        <div class="flow-card-big flow-card-green">
-          <div class="flow-icon flow-icon-green"><i data-lucide="map-pin"></i></div>
-          <div>
-            <h3>Portail Beninois</h3>
-            <p>Recevez, payez vos factures, retirez en Mobile Money</p>
+          <div class="showcase-item">
+            <div class="iphone-frame-sm"><div class="iphone-notch-sm"></div><div class="iphone-screen-sm"><img src="assets/screens/benin-bills.png" alt="Factures"/></div></div>
+            <span class="showcase-caption">Factures</span>
           </div>
-        </div>
-        <div class="flow-steps">
-          <div class="flow-step"><div class="flow-num flow-num-green">1</div><div><strong>Solde & actions</strong><p>Balance, recevoir, factures, retrait, paiement QR</p></div></div>
-          <div class="flow-step"><div class="flow-num flow-num-green">2</div><div><strong>Factures</strong><p>Payez SBEE, SONEB, MTN, Canal+ en un clic</p></div></div>
+          <div class="showcase-item">
+            <div class="iphone-frame-sm"><div class="iphone-notch-sm"></div><div class="iphone-screen-sm"><img src="assets/screens/benin-receive.png" alt="Recevoir"/></div></div>
+            <span class="showcase-caption">Recevoir</span>
+          </div>
+          <div class="showcase-item">
+            <div class="iphone-frame-sm"><div class="iphone-notch-sm"></div><div class="iphone-screen-sm"><img src="assets/screens/benin-withdraw.png" alt="Retirer"/></div></div>
+            <span class="showcase-caption">Retirer</span>
+          </div>
         </div>
       </div>
+    </div>
+
+    <div class="showcase-cta" data-animate="fade-up" data-delay=".25">
+      <a href="app.html" class="btn btn-primary btn-lg"><i data-lucide="smartphone" style="width:18px;height:18px;"></i> Tester le prototype interactif</a>
     </div>
   </div>
 </section>

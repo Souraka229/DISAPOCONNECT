@@ -126,7 +126,20 @@ document.addEventListener('DOMContentLoaded', () => {
     gsap.to('.orb-2', { y: 60, scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1 } });
 
     // Phone parallax
-    gsap.to('.phone-main', { y: -30, scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1 } });
-    gsap.to('.phone-secondary', { y: 20, scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1 } });
+    gsap.to('.iphone-main', { y: -30, scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1 } });
+    gsap.to('.iphone-secondary', { y: 20, scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1 } });
+
+    // Showcase staggered entrance
+    document.querySelectorAll('.showcase-phones').forEach(container => {
+      const items = container.querySelectorAll('.showcase-item');
+      ScrollTrigger.create({
+        trigger: container,
+        start: 'top 85%',
+        onEnter: () => {
+          gsap.from(items, { opacity: 0, y: 50, scale: .92, duration: .6, stagger: .12, ease: 'power3.out' });
+        },
+        once: true
+      });
+    });
   }
 });
