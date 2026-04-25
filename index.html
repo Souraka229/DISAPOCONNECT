@@ -2,535 +2,452 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
-  <title>DiasporaConnect — Prototype</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DiasporaConnect — Transferts d'argent vers le Benin, sans frais excessifs</title>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
   <script src="https://unpkg.com/lucide@0.344.0/dist/umd/lucide.min.js" defer></script>
   <link rel="stylesheet" href="styles.css"/>
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg"/>
 </head>
 <body>
 
-<!-- ===== PORTAL SELECTOR ===== -->
-<div id="portalSelector" class="portal-selector active-view">
-  <div class="ps-bg"></div>
-  <div class="ps-content">
-    <div class="ps-logo">
-      <svg width="64" height="64" viewBox="0 0 40 40" fill="none">
+<!-- ===== NAVBAR ===== -->
+<nav class="navbar" id="navbar">
+  <div class="container nav-container">
+    <a href="#" class="logo">
+      <svg class="logo-svg" width="40" height="40" viewBox="0 0 40 40" fill="none">
         <rect width="40" height="40" rx="12" fill="url(#lg)"/>
         <path d="M12 14C12 14 16 10 20 10C26 10 28 14 28 18C28 24 20 30 20 30C20 30 12 24 12 18" stroke="#fff" stroke-width="2.2" stroke-linecap="round" fill="none"/>
         <path d="M17 18L20 21L27 14" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/>
         <circle cx="30" cy="12" r="5" fill="#16A34A"/><path d="M28 12H32M30 10V14" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/>
         <defs><linearGradient id="lg" x1="0" y1="0" x2="40" y2="40"><stop stop-color="#F97316"/><stop offset="1" stop-color="#EA580C"/></linearGradient></defs>
       </svg>
+      <span class="logo-text">Diaspora<strong>Connect</strong></span>
+    </a>
+    <div class="nav-links" id="navLinks">
+      <a href="#fonctionnalites">Fonctionnalites</a>
+      <a href="#tarifs">Tarifs</a>
+      <a href="#demo">Application</a>
+      <a href="#securite">Securite</a>
+      <a href="#faq">FAQ</a>
     </div>
-    <h1 class="ps-title">Diaspora<strong>Connect</strong></h1>
-    <p class="ps-sub">Choisissez votre portail pour tester l'application</p>
+    <div class="nav-actions" id="navActions">
+      <a href="app.html" class="btn btn-primary btn-nav"><i data-lucide="smartphone" style="width:16px;height:16px;"></i> Tester l'app</a>
+    </div>
+    <button class="mobile-toggle" id="mobileToggle"><span></span><span></span><span></span></button>
+  </div>
+</nav>
 
-    <div class="ps-cards">
-      <button class="ps-card" onclick="openPortal('diaspora')">
-        <div class="ps-card-icon ps-diaspora-icon">
-          <i data-lucide="plane"></i>
-        </div>
-        <h3>Portail Diaspora</h3>
-        <p>Envoyez de l'argent a vos proches au Benin depuis l'etranger</p>
-        <span class="ps-card-arrow"><i data-lucide="arrow-right"></i></span>
-      </button>
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="hero-bg">
+    <div class="hero-orb orb-1"></div>
+    <div class="hero-orb orb-2"></div>
+    <div class="hero-orb orb-3"></div>
+    <div class="hero-grid-bg"></div>
+  </div>
+  <div class="container hero-container">
+    <div class="hero-content">
+      <div class="hero-badge"><i data-lucide="star" style="width:14px;height:14px;"></i> MIABE Hackathon 2026 — Benin</div>
+      <h1>Envoyez de l'argent au <span class="gradient-text">Benin</span> sans frais excessifs</h1>
+      <p class="hero-subtitle">Reduisez vos frais de transfert de <strong>7-15%</strong> a <strong>moins de 1%</strong> grace a la blockchain. Chaque dollar compte pour vos proches.</p>
 
-      <button class="ps-card" onclick="openPortal('benin')">
-        <div class="ps-card-icon ps-benin-icon">
-          <i data-lucide="map-pin"></i>
+      <!-- Live Calculator -->
+      <div class="calculator" data-animate="fade-up">
+        <div class="calc-row">
+          <label>VOUS ENVOYEZ</label>
+          <div class="calc-input-group">
+            <input type="number" id="sendAmount" value="200" placeholder="200"/>
+            <div class="currency-select">
+              <img src="https://flagcdn.com/w40/us.png" alt="USD" class="currency-flag" id="sendFlag" width="24" height="16"/>
+              <select id="sendCurrency">
+                <option value="USD" selected>USD</option>
+                <option value="EUR">EUR</option>
+                <option value="GBP">GBP</option>
+                <option value="CAD">CAD</option>
+              </select>
+              <i data-lucide="chevron-down" class="cs-arrow"></i>
+            </div>
+          </div>
         </div>
-        <h3>Portail Beninois</h3>
-        <p>Recevez de l'argent, payez vos factures et vos achats</p>
-        <span class="ps-card-arrow"><i data-lucide="arrow-right"></i></span>
-      </button>
+        <div class="calc-divider">
+          <div class="calc-swap"><button class="swap-btn"><i data-lucide="arrow-down-up"></i></button></div>
+        </div>
+        <div class="calc-row">
+          <label>ILS RECOIVENT</label>
+          <div class="calc-input-group">
+            <span class="calc-result" id="receiveAmount">118 400</span>
+            <div class="currency-select recv-select">
+              <img src="https://flagcdn.com/w40/bj.png" alt="XOF" class="currency-flag" width="24" height="16"/>
+              <span class="cs-code">XOF</span>
+            </div>
+          </div>
+        </div>
+        <div class="calc-fees">
+          <div class="fee-line fee-ours"><i data-lucide="circle-check" class="fee-icon"></i> Frais : <strong>0.8%</strong> — Soit <strong id="ourFee">1,60 USD</strong></div>
+          <div class="fee-line fee-theirs"><i data-lucide="alert-triangle" class="fee-icon"></i> vs WU : jusqu'a <strong>22 USD</strong> de frais</div>
+        </div>
+        <a href="app.html" class="btn btn-primary btn-full btn-lg calc-cta">Commencer un transfert <i data-lucide="arrow-right" style="width:18px;height:18px;"></i></a>
+      </div>
+
+      <div class="hero-trust">
+        <div class="trust-avatars">
+          <div class="trust-avatar" style="background:#F97316;">AM</div>
+          <div class="trust-avatar" style="background:#16A34A;">KM</div>
+          <div class="trust-avatar" style="background:#3B82F6;">SD</div>
+          <div class="trust-avatar" style="background:#8B5CF6;">FK</div>
+        </div>
+        <span><strong>2 000+</strong> transferts simules lors du hackathon</span>
+      </div>
     </div>
 
-    <div class="ps-footer">
-      <span>MIABE Hackathon 2026 — Benin</span>
+    <!-- Hero Phone Mockups -->
+    <div class="hero-visual">
+      <div class="hero-glow"></div>
+      <div class="hero-phone-group">
+        <div class="phone-frame phone-main">
+          <img src="assets/screens/home-sender.png" alt="DiasporaConnect - Accueil Envoyeur" onerror="this.parentElement.innerHTML='<div class=phone-placeholder><span>Portail Diaspora</span></div>'"/>
+        </div>
+        <div class="phone-frame phone-secondary">
+          <img src="assets/screens/home-receiver.png" alt="DiasporaConnect - Accueil Destinataire" onerror="this.parentElement.innerHTML='<div class=phone-placeholder><span>Portail Benin</span></div>'"/>
+        </div>
+      </div>
     </div>
   </div>
-</div>
+</section>
 
-<!-- ===== DIASPORA APP ===== -->
-<div id="diasporaApp" class="app-shell">
-  <!-- Screens -->
-  <div class="app-screens">
-
-    <!-- D-Home -->
-    <div class="screen active" id="d-home">
-      <div class="screen-scroll">
-        <div class="d-home-header">
-          <div>
-            <h2 class="greeting">Bonjour, Aminata <span class="wave">&#128075;</span></h2>
-            <p class="greeting-sub">Ou envoyez-vous de l'argent aujourd'hui ?</p>
-          </div>
-          <button class="avatar-btn" onclick="goScreen('d-profile')">
-            <div class="avatar avatar-orange">AM</div>
-          </button>
-        </div>
-
-        <!-- Calculator Card -->
-        <div class="card calc-card">
-          <div class="calc-row">
-            <label>VOUS ENVOYEZ</label>
-            <div class="calc-input-wrap">
-              <input type="number" id="dSendAmt" value="200" class="calc-input"/>
-              <div class="currency-pill">
-                <img src="https://flagcdn.com/w40/us.png" alt="" width="20" height="14" class="flag-img" id="dSendFlag"/>
-                <select id="dSendCur" class="cur-select">
-                  <option value="USD" data-flag="us" selected>USD</option>
-                  <option value="EUR" data-flag="eu">EUR</option>
-                  <option value="GBP" data-flag="gb">GBP</option>
-                  <option value="CAD" data-flag="ca">CAD</option>
-                </select>
-                <i data-lucide="chevron-down" class="cur-arrow"></i>
-              </div>
-            </div>
-          </div>
-          <div class="calc-swap-row">
-            <div class="calc-swap-btn"><i data-lucide="arrow-down-up"></i></div>
-          </div>
-          <div class="calc-row">
-            <label>ILS RECOIVENT</label>
-            <div class="calc-input-wrap">
-              <span class="calc-output" id="dRecvAmt">118 400</span>
-              <div class="currency-pill recv-pill">
-                <img src="https://flagcdn.com/w40/bj.png" alt="" width="20" height="14" class="flag-img"/>
-                <span>XOF</span>
-              </div>
-            </div>
-          </div>
-          <div class="calc-fees-row">
-            <div class="fee-good"><i data-lucide="circle-check"></i> Frais : <strong>0.8%</strong> - Soit <strong id="dFee">1,60 USD</strong></div>
-            <div class="fee-warn"><i data-lucide="bell"></i> vs WU : jusqu'a <strong>22 USD</strong> de frais</div>
-          </div>
-        </div>
-
-        <button class="btn-primary-full" onclick="goScreen('d-transfer')">
-          Commencer un transfert <i data-lucide="arrow-right"></i>
-        </button>
-
-        <button class="btn-outline-full" onclick="goScreen('d-transfer')">
-          Voir la comparaison des frais
-        </button>
-
-        <!-- Recent Transfers -->
-        <div class="section-title">
-          <span>Transferts recents</span>
-          <a class="link-orange">VOIR TOUT</a>
-        </div>
-        <div class="tx-list">
-          <div class="tx-item">
-            <div class="avatar avatar-orange-sm">MA</div>
-            <div class="tx-info">
-              <strong>Maman</strong>
-              <span>il y a 2 jours</span>
-            </div>
-            <span class="tx-amount">150 USD</span>
-          </div>
-          <div class="tx-item">
-            <div class="avatar avatar-green-sm">FR</div>
-            <div class="tx-info">
-              <strong>Frere Kofi</strong>
-              <span>il y a 1 semaine</span>
-            </div>
-            <span class="tx-amount">200 USD</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- D-Transfer (New) -->
-    <div class="screen" id="d-transfer">
-      <div class="screen-scroll">
-        <div class="screen-topbar">
-          <button class="back-btn" onclick="goScreen('d-home')"><i data-lucide="arrow-left"></i></button>
-          <div class="topbar-center">
-            <strong>Nouveau transfert</strong>
-            <span class="topbar-sub">Etape 1 sur 2</span>
-          </div>
-          <button class="cancel-btn" onclick="goScreen('d-home')">Annuler</button>
-        </div>
-
-        <div class="transfer-form">
-          <div class="tf-row">
-            <label>Vous envoyez</label>
-            <div class="tf-input-wrap">
-              <input type="number" id="tfAmount" value="100" class="tf-input"/>
-              <div class="currency-pill tf-pill">
-                <div class="cur-circle cur-circle-gray">E</div>
-                <span>EUR</span>
-                <i data-lucide="chevron-down" class="cur-arrow"></i>
-              </div>
-            </div>
-          </div>
-
-          <div class="rate-badge">
-            <div class="rate-icon"><i data-lucide="zap"></i></div>
-            <div>
-              <strong>1 EUR = 655,957 XOF</strong>
-              <span>Taux du marche en temps reel</span>
-            </div>
-          </div>
-
-          <div class="tf-row">
-            <div class="tf-recv-header">
-              <label>Destinataire recoit</label>
-              <span class="arrive-badge"><i data-lucide="clock"></i> Arrive en 30 min</span>
-            </div>
-            <div class="tf-input-wrap">
-              <span class="tf-output" id="tfRecv">65 596</span>
-              <div class="currency-pill tf-pill">
-                <div class="cur-circle cur-circle-green">F</div>
-                <span>XOF</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <button class="btn-primary-full" onclick="goScreen('d-summary')">
-          Continuer <i data-lucide="arrow-right"></i>
-        </button>
-      </div>
-    </div>
-
-    <!-- D-Summary -->
-    <div class="screen" id="d-summary">
-      <div class="screen-scroll">
-        <div class="screen-topbar">
-          <button class="back-btn" onclick="goScreen('d-transfer')"><i data-lucide="arrow-left"></i></button>
-          <div class="topbar-center">
-            <strong>Nouveau transfert</strong>
-            <span class="topbar-sub">Etape 1 sur 2</span>
-          </div>
-          <button class="cancel-btn" onclick="goScreen('d-home')">Annuler</button>
-        </div>
-
-        <div class="rate-badge" style="margin-top:16px;">
-          <div class="rate-icon"><i data-lucide="zap"></i></div>
-          <div>
-            <strong>1 EUR = 655,957 XOF</strong>
-            <span>Taux du marche en temps reel</span>
-          </div>
-        </div>
-
-        <div class="summary-recv">
-          <div class="summary-recv-header">
-            <label>Destinataire recoit</label>
-            <span class="arrive-badge"><i data-lucide="clock"></i> Arrive en 30 min</span>
-          </div>
-          <div class="summary-recv-amount">
-            <span class="big-amount">66 252</span>
-            <div class="currency-pill tf-pill">
-              <div class="cur-circle cur-circle-green">F</div>
-              <span>XOF</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="card fee-summary-card">
-          <h4>Resume des frais</h4>
-          <div class="fee-row"><span>Montant envoye</span><strong>101 EUR</strong></div>
-          <div class="fee-row"><span>Frais de transfert</span><strong class="green-text">Gratuit</strong></div>
-          <div class="fee-row fee-total"><span>Total</span><strong>101 EUR</strong></div>
-        </div>
-
-        <div class="security-banner">
-          <div class="sec-icon"><i data-lucide="shield"></i></div>
-          <div>
-            <strong>Transaction securisee</strong>
-            <span>Chiffrement de bout en bout</span>
-          </div>
-          <div class="sec-icon-r"><i data-lucide="fingerprint"></i></div>
-        </div>
-
-        <button class="btn-primary-full" onclick="goScreen('d-sent')" style="margin-top:16px;">
-          <div class="avatar avatar-orange-xs" style="margin-right:8px;">N</div>
-          Continuer <i data-lucide="arrow-right"></i>
-        </button>
-      </div>
-    </div>
-
-    <!-- D-Sent -->
-    <div class="screen" id="d-sent">
-      <div class="screen-scroll screen-centered">
-        <div class="sent-check">
-          <div class="sent-check-circle">
-            <i data-lucide="check"></i>
-          </div>
-        </div>
-        <h2 class="sent-title">Transfert envoye</h2>
-        <p class="sent-sub">Maman va recevoir les fonds dans quelques minutes</p>
-
-        <div class="card sent-details-card">
-          <div class="sent-amount-row">
-            <span class="sent-label">Montant envoye</span>
-            <div class="sent-big-amount">65 596 <span class="sent-cur">XOF</span></div>
-            <span class="sent-equiv">(100 EUR)</span>
-          </div>
-          <div class="sent-detail"><span>De</span><strong>Kofi M.</strong></div>
-          <div class="sent-detail"><span>A</span><strong>Maman</strong></div>
-          <div class="sent-detail"><span>Statut</span><span class="status-badge"><span class="status-dot"></span> En cours de livraison</span></div>
-          <div class="sent-detail"><span>ID Transaction</span><span class="tx-id">DC-2026-0415-7X9K <i data-lucide="copy" class="copy-icon"></i></span></div>
-        </div>
-
-        <div class="arrive-info">
-          <i data-lucide="clock" class="arrive-icon"></i>
-          <div>
-            <strong>Arrivee estimee</strong>
-            <span>Dans moins de 30 minutes</span>
-          </div>
-        </div>
-
-        <button class="btn-primary-full" onclick="goScreen('d-home')" style="margin-top:24px;">
-          Retour a l'accueil <i data-lucide="arrow-right"></i>
-        </button>
-      </div>
-    </div>
-
-    <!-- D-Profile -->
-    <div class="screen" id="d-profile">
-      <div class="screen-scroll">
-        <div class="screen-topbar">
-          <button class="back-btn" onclick="goScreen('d-home')"><i data-lucide="arrow-left"></i></button>
-          <div class="topbar-center"><strong>Mon Profil</strong></div>
-          <div style="width:40px"></div>
-        </div>
-
-        <div class="profile-header">
-          <div class="profile-avatar">
-            <div class="avatar avatar-big">KM</div>
-            <div class="verified-check"><i data-lucide="check-circle"></i></div>
-          </div>
-          <h3 class="profile-name">Kofi Mensah</h3>
-          <span class="profile-email">kofi.mensah@email.com</span>
-          <div class="profile-badges">
-            <span class="badge badge-green"><i data-lucide="shield-check"></i> Verifie</span>
-            <span class="badge badge-orange">Premium</span>
-          </div>
-        </div>
-
-        <div class="profile-stats">
-          <div class="pstat"><strong>24</strong><span>ce mois</span></div>
-          <div class="pstat"><strong>186<br/>EUR</strong><span>vs banques</span></div>
-          <div class="pstat"><strong>4.9</strong><span>satisfaction</span></div>
-        </div>
-
-        <div class="menu-section-title">COMPTE</div>
-        <div class="menu-list">
-          <div class="menu-item"><i data-lucide="user"></i><span>Informations personnelles</span><i data-lucide="chevron-right" class="menu-arrow"></i></div>
-          <div class="menu-item"><i data-lucide="shield"></i><span>Securite</span><span class="badge badge-green-sm">KYC Verifie</span><i data-lucide="chevron-right" class="menu-arrow"></i></div>
-          <div class="menu-item"><i data-lucide="credit-card"></i><span>Methodes de paiement</span><i data-lucide="chevron-right" class="menu-arrow"></i></div>
-        </div>
-
-        <div class="menu-section-title">PREFERENCES</div>
-        <div class="menu-list">
-          <div class="menu-item"><i data-lucide="bell"></i><span>Notifications</span><div class="toggle"><div class="toggle-knob"></div></div></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- D-History -->
-    <div class="screen" id="d-history">
-      <div class="screen-scroll">
-        <div class="d-home-header" style="padding-top:16px;">
-          <h2 style="font-size:1.3rem;font-weight:800;color:#0F172A;">Historique</h2>
-        </div>
-        <div class="tx-list">
-          <div class="tx-item"><div class="avatar avatar-orange-sm">MA</div><div class="tx-info"><strong>Maman</strong><span>Aujourd'hui</span></div><span class="tx-amount">100 EUR</span></div>
-          <div class="tx-item"><div class="avatar avatar-green-sm">FR</div><div class="tx-info"><strong>Frere Kofi</strong><span>Hier</span></div><span class="tx-amount">200 USD</span></div>
-          <div class="tx-item"><div class="avatar avatar-orange-sm">MA</div><div class="tx-info"><strong>Maman</strong><span>il y a 3 jours</span></div><span class="tx-amount">150 EUR</span></div>
-          <div class="tx-item"><div class="avatar avatar-purple-sm">SO</div><div class="tx-info"><strong>Soeur Ada</strong><span>il y a 1 semaine</span></div><span class="tx-amount">75 USD</span></div>
-          <div class="tx-item"><div class="avatar avatar-green-sm">FR</div><div class="tx-info"><strong>Frere Kofi</strong><span>il y a 2 semaines</span></div><span class="tx-amount">300 EUR</span></div>
-        </div>
-      </div>
-    </div>
-
+<!-- ===== STATS ===== -->
+<section class="stats-banner" data-animate-section>
+  <div class="container stats-container">
+    <div class="stat" data-animate="fade-up"><span class="stat-number" data-target="550">0</span><span class="stat-suffix">M USD</span><span class="stat-label">Transferts diaspora/an</span></div>
+    <div class="stat-divider"></div>
+    <div class="stat" data-animate="fade-up" data-delay=".1"><span class="stat-number" data-target="0.8">0</span><span class="stat-suffix">%</span><span class="stat-label">Frais de transfert</span></div>
+    <div class="stat-divider"></div>
+    <div class="stat" data-animate="fade-up" data-delay=".2"><span class="stat-number" data-target="30">0</span><span class="stat-suffix"> min</span><span class="stat-label">Delai de reception</span></div>
+    <div class="stat-divider"></div>
+    <div class="stat" data-animate="fade-up" data-delay=".3"><span class="stat-number" data-target="82">0</span><span class="stat-suffix">%</span><span class="stat-label">Couverture mobile money</span></div>
   </div>
+</section>
 
-  <!-- Bottom Nav -->
-  <nav class="bottom-nav" id="dNav">
-    <button class="bnav-item active" onclick="goScreen('d-home')"><i data-lucide="home"></i><span>Accueil</span></button>
-    <button class="bnav-item" onclick="goScreen('d-transfer')"><i data-lucide="send"></i><span>Envoyer</span></button>
-    <button class="bnav-item" onclick="goScreen('d-history')"><i data-lucide="clock"></i><span>Historique</span></button>
-    <button class="bnav-item" onclick="goScreen('d-profile')"><i data-lucide="user"></i><span>Profil</span></button>
-  </nav>
-
-  <button class="switch-portal-fab" onclick="showPortalSelector()"><i data-lucide="repeat"></i></button>
-</div>
-
-<!-- ===== BENIN APP ===== -->
-<div id="beninApp" class="app-shell">
-  <div class="app-screens">
-
-    <!-- B-Home -->
-    <div class="screen active" id="b-home">
-      <div class="screen-scroll">
-        <div class="b-hero-card">
-          <div class="b-hero-top">
-            <div>
-              <h2 class="b-greeting">Bonjour, Koffi <span class="wave">&#128075;</span></h2>
-              <p class="b-greeting-sub">Votre solde disponible</p>
-            </div>
-            <button class="avatar-btn" onclick="goScreen('b-profile')">
-              <div class="avatar avatar-green-border">KF</div>
-            </button>
-          </div>
-          <div class="b-balance">345 500 <span class="b-cur">XOF</span></div>
-        </div>
-
-        <div class="b-actions">
-          <button class="b-action" onclick="goScreen('b-receive')">
-            <div class="b-action-icon"><i data-lucide="download"></i></div>
-            <span>Recevoir</span>
-          </button>
-          <button class="b-action" onclick="goScreen('b-bills')">
-            <div class="b-action-icon"><i data-lucide="file-text"></i></div>
-            <span>Factures</span>
-          </button>
-          <button class="b-action" onclick="goScreen('b-withdraw')">
-            <div class="b-action-icon b-action-icon-plus"><i data-lucide="plus"></i></div>
-            <span>Retirer</span>
-          </button>
-        </div>
-
-        <div class="b-merchant-card">
-          <h3>Paiement Marchand</h3>
-          <p>Payez vos achats locaux sans frais via QR Code.</p>
-          <button class="b-scan-btn"><i data-lucide="qr-code"></i> Scanner</button>
-        </div>
-
-        <div class="section-title">
-          <span>Dernieres operations</span>
-          <a class="link-green">VOIR TOUT</a>
-        </div>
-        <div class="tx-list">
-          <div class="tx-item">
-            <div class="avatar avatar-green-sm">AM</div>
-            <div class="tx-info"><strong>Aminata (Diaspora)</strong><span>A l'instant</span></div>
-            <span class="tx-amount tx-positive">+ 118 400 XOF</span>
-          </div>
-          <div class="tx-item">
-            <div class="avatar avatar-gray-sm">SB</div>
-            <div class="tx-info"><strong>Paiement SBEE</strong><span>Hier</span></div>
-            <span class="tx-amount tx-negative">- 15 000 XOF</span>
-          </div>
-          <div class="tx-item">
-            <div class="avatar avatar-green-sm">KM</div>
-            <div class="tx-info"><strong>Kofi (Diaspora)</strong><span>il y a 3 jours</span></div>
-            <span class="tx-amount tx-positive">+ 65 596 XOF</span>
-          </div>
-        </div>
+<!-- ===== PROBLEM ===== -->
+<section class="problem-section" data-animate-section>
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">Le probleme</span>
+      <h2>Les frais excessifs appauvrissent vos proches</h2>
+      <p>Sur un envoi de 200 USD, les services traditionnels prelevent 14 a 30 USD en frais.</p>
+    </div>
+    <div class="problem-grid">
+      <div class="problem-card" data-animate="fade-up">
+        <div class="problem-icon-wrap problem-red"><i data-lucide="banknote"></i></div>
+        <h3>7 a 15% de frais</h3>
+        <p>Western Union et MoneyGram prelevent des frais exorbitants sur chaque envoi vers l'Afrique.</p>
+      </div>
+      <div class="problem-card" data-animate="fade-up" data-delay=".08">
+        <div class="problem-icon-wrap problem-red"><i data-lucide="clock"></i></div>
+        <h3>2 a 5 jours d'attente</h3>
+        <p>Les transferts bancaires traditionnels prennent plusieurs jours ouvrables.</p>
+      </div>
+      <div class="problem-card" data-animate="fade-up" data-delay=".16">
+        <div class="problem-icon-wrap problem-red"><i data-lucide="eye-off"></i></div>
+        <h3>Frais caches</h3>
+        <p>Les taux de change gonfles masquent les vrais couts du transfert.</p>
+      </div>
+      <div class="problem-card highlight-card" data-animate="fade-up" data-delay=".24">
+        <div class="problem-icon-wrap problem-green"><i data-lucide="zap"></i></div>
+        <h3>La solution DiasporaConnect</h3>
+        <p>Transferts a <strong>moins de 1%</strong> de frais, en <strong>moins de 30 min</strong>, securises par la blockchain.</p>
       </div>
     </div>
-
-    <!-- B-Receive -->
-    <div class="screen" id="b-receive">
-      <div class="screen-scroll screen-centered">
-        <div class="screen-topbar">
-          <button class="back-btn" onclick="goScreen('b-home')"><i data-lucide="arrow-left"></i></button>
-          <div class="topbar-center"><strong>Recevoir</strong></div>
-          <div style="width:40px"></div>
-        </div>
-        <div class="receive-icon"><i data-lucide="download"></i></div>
-        <h3 style="margin:16px 0 8px;font-size:1.2rem;color:#0F172A;">En attente de reception</h3>
-        <p style="color:#6B7280;font-size:.9rem;text-align:center;">Partagez votre code pour recevoir un transfert instantane.</p>
-        <div class="qr-placeholder"><i data-lucide="qr-code"></i><span>Votre QR Code</span></div>
-        <div class="card" style="margin-top:16px;padding:16px;">
-          <div class="sent-detail"><span>Votre ID</span><strong>KF-BENIN-2026</strong></div>
-          <div class="sent-detail"><span>Mobile Money</span><strong>+229 97 XX XX XX</strong></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- B-Bills -->
-    <div class="screen" id="b-bills">
-      <div class="screen-scroll">
-        <div class="screen-topbar">
-          <button class="back-btn" onclick="goScreen('b-home')"><i data-lucide="arrow-left"></i></button>
-          <div class="topbar-center"><strong>Factures</strong></div>
-          <div style="width:40px"></div>
-        </div>
-        <div class="bills-list">
-          <div class="bill-item"><div class="bill-icon bill-elec"><i data-lucide="zap"></i></div><div class="bill-info"><strong>SBEE - Electricite</strong><span>Facture du mois</span></div><strong class="bill-amount">15 000 XOF</strong><button class="bill-pay-btn">Payer</button></div>
-          <div class="bill-item"><div class="bill-icon bill-water"><i data-lucide="droplets"></i></div><div class="bill-info"><strong>SONEB - Eau</strong><span>Facture du mois</span></div><strong class="bill-amount">8 500 XOF</strong><button class="bill-pay-btn">Payer</button></div>
-          <div class="bill-item"><div class="bill-icon bill-phone"><i data-lucide="smartphone"></i></div><div class="bill-info"><strong>MTN - Mobile</strong><span>Recharge</span></div><strong class="bill-amount">5 000 XOF</strong><button class="bill-pay-btn">Payer</button></div>
-          <div class="bill-item"><div class="bill-icon bill-tv"><i data-lucide="tv"></i></div><div class="bill-info"><strong>Canal+ - TV</strong><span>Abonnement</span></div><strong class="bill-amount">12 000 XOF</strong><button class="bill-pay-btn">Payer</button></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- B-Withdraw -->
-    <div class="screen" id="b-withdraw">
-      <div class="screen-scroll">
-        <div class="screen-topbar">
-          <button class="back-btn" onclick="goScreen('b-home')"><i data-lucide="arrow-left"></i></button>
-          <div class="topbar-center"><strong>Retirer</strong></div>
-          <div style="width:40px"></div>
-        </div>
-        <div class="card" style="margin-top:16px;padding:20px;text-align:center;">
-          <label style="font-size:.75rem;font-weight:600;color:#9CA3AF;text-transform:uppercase;">Montant a retirer</label>
-          <div style="display:flex;align-items:baseline;justify-content:center;gap:8px;margin:12px 0;">
-            <input type="number" value="50000" class="withdraw-input"/>
-            <span style="font-size:1.1rem;font-weight:700;color:#6B7280;">XOF</span>
-          </div>
-          <p style="font-size:.82rem;color:#9CA3AF;">Solde disponible : 345 500 XOF</p>
-        </div>
-        <div class="withdraw-methods">
-          <div class="wm-item"><div class="wm-icon wm-mtn">MTN</div><div><strong>MTN Mobile Money</strong><span>+229 97 XX XX XX</span></div><i data-lucide="chevron-right" class="menu-arrow"></i></div>
-          <div class="wm-item"><div class="wm-icon wm-moov">M</div><div><strong>Moov Money</strong><span>+229 95 XX XX XX</span></div><i data-lucide="chevron-right" class="menu-arrow"></i></div>
-        </div>
-        <button class="btn-green-full" style="margin-top:20px;">Retirer maintenant</button>
-      </div>
-    </div>
-
-    <!-- B-Profile -->
-    <div class="screen" id="b-profile">
-      <div class="screen-scroll">
-        <div class="screen-topbar">
-          <button class="back-btn" onclick="goScreen('b-home')"><i data-lucide="arrow-left"></i></button>
-          <div class="topbar-center"><strong>Mon Profil</strong></div>
-          <div style="width:40px"></div>
-        </div>
-        <div class="profile-header">
-          <div class="profile-avatar">
-            <div class="avatar avatar-big avatar-green-bg">KF</div>
-          </div>
-          <h3 class="profile-name">Koffi Adjakou</h3>
-          <span class="profile-email">koffi.adjakou@email.com</span>
-          <div class="profile-badges">
-            <span class="badge badge-green"><i data-lucide="shield-check"></i> Verifie</span>
-          </div>
-        </div>
-        <div class="profile-stats">
-          <div class="pstat"><strong>345 500</strong><span>XOF solde</span></div>
-          <div class="pstat"><strong>12</strong><span>receptions</span></div>
-          <div class="pstat"><strong>4.8</strong><span>satisfaction</span></div>
-        </div>
-        <div class="menu-section-title">COMPTE</div>
-        <div class="menu-list">
-          <div class="menu-item"><i data-lucide="user"></i><span>Informations personnelles</span><i data-lucide="chevron-right" class="menu-arrow"></i></div>
-          <div class="menu-item"><i data-lucide="shield"></i><span>Securite</span><i data-lucide="chevron-right" class="menu-arrow"></i></div>
-          <div class="menu-item"><i data-lucide="smartphone"></i><span>Mobile Money</span><i data-lucide="chevron-right" class="menu-arrow"></i></div>
-        </div>
-      </div>
-    </div>
-
   </div>
+</section>
 
-  <!-- Bottom Nav Benin -->
-  <nav class="bottom-nav bottom-nav-green" id="bNav">
-    <button class="bnav-item active" onclick="goScreen('b-home')"><i data-lucide="home"></i><span>Accueil</span></button>
-    <button class="bnav-item" onclick="goScreen('b-receive')"><i data-lucide="download"></i><span>Recevoir</span></button>
-    <button class="bnav-item" onclick="goScreen('b-bills')"><i data-lucide="file-text"></i><span>Factures</span></button>
-    <button class="bnav-item" onclick="goScreen('b-withdraw')"><i data-lucide="plus-circle"></i><span>Retirer</span></button>
-  </nav>
+<!-- ===== FEATURES ===== -->
+<section class="features-section" id="fonctionnalites" data-animate-section>
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">Fonctionnalites</span>
+      <h2>Tout ce qu'il faut pour envoyer et recevoir</h2>
+      <p>Une application pensee pour la diaspora africaine et ses proches au Benin.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card" data-animate="fade-up">
+        <div class="feature-icon-wrap"><i data-lucide="send"></i></div>
+        <h3>Transferts instantanes</h3>
+        <p>Envoyez de l'argent et votre destinataire le recoit en moins de 30 minutes, directement sur son mobile.</p>
+      </div>
+      <div class="feature-card" data-animate="fade-up" data-delay=".08">
+        <div class="feature-icon-wrap"><i data-lucide="piggy-bank"></i></div>
+        <h3>Frais quasi nuls</h3>
+        <p>Seulement 0.8% de frais contre 7-15% chez les concurrents. Chaque centime compte.</p>
+      </div>
+      <div class="feature-card" data-animate="fade-up" data-delay=".16">
+        <div class="feature-icon-wrap"><i data-lucide="shield-check"></i></div>
+        <h3>Securise par la blockchain</h3>
+        <p>Chiffrement de bout en bout et tracabilite complete de chaque transaction sur la blockchain.</p>
+      </div>
+      <div class="feature-card" data-animate="fade-up" data-delay=".24">
+        <div class="feature-icon-wrap"><i data-lucide="smartphone"></i></div>
+        <h3>Mobile Money integre</h3>
+        <p>Retrait direct via MTN et Moov couvrant 82% des adultes beninois.</p>
+      </div>
+      <div class="feature-card" data-animate="fade-up" data-delay=".32">
+        <div class="feature-icon-wrap"><i data-lucide="trending-up"></i></div>
+        <h3>Taux en temps reel</h3>
+        <p>Taux de change du marche affiches en direct. Aucune majoration cachee.</p>
+      </div>
+      <div class="feature-card" data-animate="fade-up" data-delay=".4">
+        <div class="feature-icon-wrap"><i data-lucide="user-check"></i></div>
+        <h3>KYC verifie</h3>
+        <p>Verification d'identite rapide et conforme aux reglementations internationales.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-  <button class="switch-portal-fab switch-portal-fab-green" onclick="showPortalSelector()"><i data-lucide="repeat"></i></button>
-</div>
+<!-- ===== PRICING ===== -->
+<section class="pricing-section" id="tarifs" data-animate-section>
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">Tarifs transparents</span>
+      <h2>100% transparent. Zero surprise.</h2>
+      <p>Comparez nos frais avec les services traditionnels sur un envoi de 200 USD.</p>
+    </div>
+    <div class="pricing-table-wrapper" data-animate="fade-up">
+      <table class="pricing-table">
+        <thead><tr><th>Service</th><th>Frais</th><th>Taux de change</th><th>Destinataire recoit</th><th>Delai</th></tr></thead>
+        <tbody>
+          <tr class="pricing-highlight">
+            <td><div class="provider-name"><svg class="provider-logo" width="32" height="32" viewBox="0 0 40 40"><rect width="40" height="40" rx="10" fill="url(#lg)"/><path d="M12 14C12 14 16 10 20 10C26 10 28 14 28 18C28 24 20 30 20 30" stroke="#fff" stroke-width="2" stroke-linecap="round" fill="none"/><path d="M17 18L20 21L27 14" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg> DiasporaConnect</div></td>
+            <td><strong class="green">1,60 USD (0.8%)</strong></td><td>592 XOF/USD</td><td><strong class="green">118 400 XOF</strong></td><td><strong class="green">&lt; 30 min</strong></td>
+          </tr>
+          <tr>
+            <td><div class="provider-name"><svg class="provider-logo" width="32" height="32" viewBox="0 0 32 32"><rect width="32" height="32" rx="8" fill="#FFDD00"/><text x="50%" y="54%" dominant-baseline="middle" text-anchor="middle" fill="#000" font-family="Arial,sans-serif" font-weight="900" font-size="10">WU</text></svg> Western Union</div></td>
+            <td class="red">22 USD (11%)</td><td>580 XOF/USD</td><td>103 240 XOF</td><td>1-3 jours</td>
+          </tr>
+          <tr>
+            <td><div class="provider-name"><svg class="provider-logo" width="32" height="32" viewBox="0 0 32 32"><rect width="32" height="32" rx="8" fill="#00487C"/><text x="50%" y="54%" dominant-baseline="middle" text-anchor="middle" fill="#fff" font-family="Arial,sans-serif" font-weight="800" font-size="9">MG</text></svg> MoneyGram</div></td>
+            <td class="red">18 USD (9%)</td><td>582 XOF/USD</td><td>105 924 XOF</td><td>1-2 jours</td>
+          </tr>
+          <tr>
+            <td><div class="provider-name"><div class="provider-logo-bank"><i data-lucide="landmark"></i></div> Banque traditionnelle</div></td>
+            <td class="red">30 USD (15%)</td><td>575 XOF/USD</td><td>97 750 XOF</td><td>3-5 jours</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="savings-callout" data-animate="fade-up" data-delay=".15">
+      <i data-lucide="trending-down" class="savings-icon"></i>
+      <span><strong>Economisez jusqu'a 20 650 XOF</strong> sur chaque transfert de 200 USD par rapport a une banque traditionnelle.</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===== DEMO APP ===== -->
+<section class="demo-section" id="demo" data-animate-section>
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">Testez l'application</span>
+      <h2>Decouvrez DiasporaConnect en action</h2>
+      <p>Naviguez dans le prototype comme sur un vrai telephone. Deux portails : Diaspora et Benin.</p>
+    </div>
+
+    <div class="demo-wrapper">
+      <!-- Phone Frame with live iframe -->
+      <div class="demo-phone" data-animate="fade-up">
+        <div class="demo-phone-frame">
+          <div class="demo-phone-notch"></div>
+          <div class="demo-phone-screen">
+            <iframe src="app.html" class="demo-iframe" title="DiasporaConnect Prototype"></iframe>
+          </div>
+        </div>
+        <a href="app.html" class="btn btn-primary btn-lg demo-cta" target="_blank">
+          <i data-lucide="maximize-2" style="width:18px;height:18px;"></i> Ouvrir en plein ecran
+        </a>
+      </div>
+
+      <!-- Flow Description -->
+      <div class="demo-flow" data-animate="fade-left">
+        <div class="flow-card-big">
+          <div class="flow-icon flow-icon-orange"><i data-lucide="plane"></i></div>
+          <div>
+            <h3>Portail Diaspora</h3>
+            <p>Envoyez de l'argent depuis l'etranger</p>
+          </div>
+        </div>
+        <div class="flow-steps">
+          <div class="flow-step"><div class="flow-num">1</div><div><strong>Tableau de bord</strong><p>Calculateur en temps reel, historique des transferts</p></div></div>
+          <div class="flow-step"><div class="flow-num">2</div><div><strong>Nouveau transfert</strong><p>Saisissez le montant, choisissez la devise, taux live</p></div></div>
+          <div class="flow-step"><div class="flow-num">3</div><div><strong>Resume & securite</strong><p>Verifiez les frais, le montant recu, chiffrement blockchain</p></div></div>
+          <div class="flow-step"><div class="flow-num">4</div><div><strong>Confirmation</strong><p>ID transaction, statut en temps reel, arrivee estimee</p></div></div>
+        </div>
+        <div class="flow-card-big flow-card-green">
+          <div class="flow-icon flow-icon-green"><i data-lucide="map-pin"></i></div>
+          <div>
+            <h3>Portail Beninois</h3>
+            <p>Recevez, payez vos factures, retirez en Mobile Money</p>
+          </div>
+        </div>
+        <div class="flow-steps">
+          <div class="flow-step"><div class="flow-num flow-num-green">1</div><div><strong>Solde & actions</strong><p>Balance, recevoir, factures, retrait, paiement QR</p></div></div>
+          <div class="flow-step"><div class="flow-num flow-num-green">2</div><div><strong>Factures</strong><p>Payez SBEE, SONEB, MTN, Canal+ en un clic</p></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECURITY ===== -->
+<section class="security-section" id="securite" data-animate-section>
+  <div class="container security-grid">
+    <div class="security-content" data-animate="fade-up">
+      <span class="section-tag">Securite</span>
+      <h2>La blockchain au service de la confiance</h2>
+      <p class="security-desc">DiasporaConnect utilise la technologie blockchain pour garantir des transferts transparents, rapides et inviolables.</p>
+      <ul class="security-list">
+        <li><div class="sec-check"><i data-lucide="lock"></i></div><div><strong>Chiffrement de bout en bout</strong><p>Chaque transaction est chiffree avec les standards militaires AES-256.</p></div></li>
+        <li><div class="sec-check"><i data-lucide="link"></i></div><div><strong>Tracabilite blockchain</strong><p>Chaque transfert est enregistre sur la blockchain, immuable et verifiable.</p></div></li>
+        <li><div class="sec-check"><i data-lucide="shield-check"></i></div><div><strong>KYC & conformite</strong><p>Verification d'identite conforme aux normes anti-blanchiment internationales.</p></div></li>
+        <li><div class="sec-check"><i data-lucide="smartphone"></i></div><div><strong>Authentification biometrique</strong><p>Empreinte digitale et reconnaissance faciale pour securiser chaque acces.</p></div></li>
+      </ul>
+    </div>
+    <div class="security-visual" data-animate="scale-up">
+      <div class="sec-visual-card">
+        <div class="sec-shield">
+          <i data-lucide="shield-check" class="sec-shield-icon"></i>
+          <div class="sec-pulse"></div>
+          <div class="sec-pulse sec-pulse-2"></div>
+          <div class="sec-pulse sec-pulse-3"></div>
+        </div>
+        <h3>100% Securise</h3>
+        <p>Blockchain + chiffrement AES-256</p>
+        <div class="sec-chain">
+          <div class="sec-block"></div><div class="sec-block-line"></div>
+          <div class="sec-block"></div><div class="sec-block-line"></div>
+          <div class="sec-block"></div><div class="sec-block-line"></div>
+          <div class="sec-block"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ODD ===== -->
+<section class="odd-section" data-animate-section>
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">Impact Social</span>
+      <h2>Contribuer aux Objectifs de Developpement Durable</h2>
+      <p>DiasporaConnect s'inscrit dans les ODD des Nations Unies pour un impact reel.</p>
+    </div>
+    <div class="odd-grid">
+      <div class="odd-card odd-1" data-animate="fade-up">
+        <div class="odd-icon-wrap"><i data-lucide="heart"></i></div>
+        <span class="odd-number">ODD 1</span>
+        <h3>Fin de la pauvrete</h3>
+        <p>Chaque franc economise en frais finance directement l'education et la sante des familles au Benin.</p>
+      </div>
+      <div class="odd-card odd-8" data-animate="fade-up" data-delay=".1">
+        <div class="odd-icon-wrap"><i data-lucide="briefcase"></i></div>
+        <span class="odd-number">ODD 8</span>
+        <h3>Travail decent</h3>
+        <p>Le micro-entrepreneuriat local finance par les transferts cree des emplois et stimule l'economie.</p>
+      </div>
+      <div class="odd-card odd-10" data-animate="fade-up" data-delay=".2">
+        <div class="odd-icon-wrap"><i data-lucide="scale"></i></div>
+        <span class="odd-number">ODD 10</span>
+        <h3>Inegalites reduites</h3>
+        <p>L'objectif ODD de 3% de frais max d'ici 2030. DiasporaConnect est deja a 0.8%.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== TESTIMONIALS ===== -->
+<section class="testimonials-section" data-animate-section>
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">Temoignages</span>
+      <h2>Ils font confiance a DiasporaConnect</h2>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card" data-animate="fade-up">
+        <div class="testimonial-stars"><i data-lucide="star" class="star-filled"></i><i data-lucide="star" class="star-filled"></i><i data-lucide="star" class="star-filled"></i><i data-lucide="star" class="star-filled"></i><i data-lucide="star" class="star-filled"></i></div>
+        <p>"J'economise plus de 20 euros sur chaque transfert. Ma maman recoit l'argent en 15 minutes au lieu de 3 jours."</p>
+        <div class="testimonial-author"><div class="author-avatar" style="background:linear-gradient(135deg,#FDBA74,#F97316);">AM</div><div><strong>Aminata M.</strong><span>Paris, France</span></div></div>
+      </div>
+      <div class="testimonial-card" data-animate="fade-up" data-delay=".1">
+        <div class="testimonial-stars"><i data-lucide="star" class="star-filled"></i><i data-lucide="star" class="star-filled"></i><i data-lucide="star" class="star-filled"></i><i data-lucide="star" class="star-filled"></i><i data-lucide="star" class="star-filled"></i></div>
+        <p>"L'interface est simple, le taux est juste. Je recommande a toute la communaute beninoise de Bruxelles."</p>
+        <div class="testimonial-author"><div class="author-avatar" style="background:linear-gradient(135deg,#86EFAC,#16A34A);">KD</div><div><strong>Kofi D.</strong><span>Bruxelles, Belgique</span></div></div>
+      </div>
+      <div class="testimonial-card" data-animate="fade-up" data-delay=".2">
+        <div class="testimonial-stars"><i data-lucide="star" class="star-filled"></i><i data-lucide="star" class="star-filled"></i><i data-lucide="star" class="star-filled"></i><i data-lucide="star" class="star-filled"></i><i data-lucide="star" class="star-filled"></i></div>
+        <p>"Cote Benin, je recois l'argent direct sur MTN Money. Plus besoin de faire la queue a Western Union."</p>
+        <div class="testimonial-author"><div class="author-avatar" style="background:linear-gradient(135deg,#C4B5FD,#8B5CF6);">FA</div><div><strong>Fatou A.</strong><span>Cotonou, Benin</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FAQ ===== -->
+<section class="faq-section" id="faq" data-animate-section>
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">FAQ</span>
+      <h2>Questions frequentes</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item"><button class="faq-trigger"><span>Comment fonctionne DiasporaConnect ?</span><i data-lucide="plus" class="faq-icon"></i></button><div class="faq-answer"><p>DiasporaConnect utilise la blockchain pour envoyer de l'argent de la diaspora vers le Benin. L'envoyeur depose des fonds qui sont convertis en stablecoins, puis delivres au destinataire via Mobile Money (MTN ou Moov) en moins de 30 minutes.</p></div></div>
+      <div class="faq-item"><button class="faq-trigger"><span>Pourquoi les frais sont-ils si bas ?</span><i data-lucide="plus" class="faq-icon"></i></button><div class="faq-answer"><p>En eliminant les intermediaires bancaires grace a la blockchain, nous reduisons les couts de transaction a 0.8% — soit jusqu'a 18x moins cher que les services traditionnels. Il n'y a pas de majoration sur le taux de change.</p></div></div>
+      <div class="faq-item"><button class="faq-trigger"><span>Est-ce securise ?</span><i data-lucide="plus" class="faq-icon"></i></button><div class="faq-answer"><p>Oui. Chaque transaction est chiffree (AES-256), enregistree sur la blockchain (immuable), et protegee par une authentification biometrique. Nous sommes conformes KYC/AML.</p></div></div>
+      <div class="faq-item"><button class="faq-trigger"><span>Comment le destinataire recoit-il l'argent ?</span><i data-lucide="plus" class="faq-icon"></i></button><div class="faq-answer"><p>Le destinataire recoit les fonds directement sur son compte Mobile Money (MTN ou Moov). Il peut aussi payer ses factures (SBEE, SONEB) et faire des paiements marchands via QR code directement depuis l'application.</p></div></div>
+      <div class="faq-item"><button class="faq-trigger"><span>Quels pays sont supportes ?</span><i data-lucide="plus" class="faq-icon"></i></button><div class="faq-answer"><p>La phase 1 couvre les envois depuis la France, la Belgique, les Etats-Unis et le Canada vers le Benin. L'extension a d'autres pays d'Afrique de l'Ouest est prevue pour la phase 2.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CTA ===== -->
+<section class="cta-section" data-animate-section>
+  <div class="container cta-content" data-animate="fade-up">
+    <h2>Pret a envoyer de l'argent sans frais excessifs ?</h2>
+    <p>Testez le prototype DiasporaConnect gratuitement. Deux portails : envoyeur et destinataire.</p>
+    <div class="cta-buttons">
+      <a href="app.html" class="btn btn-white btn-lg"><i data-lucide="smartphone" style="width:18px;height:18px;"></i> Tester l'application</a>
+      <a href="#demo" class="btn btn-outline-white btn-lg">Voir la demo</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#" class="logo">
+          <svg width="36" height="36" viewBox="0 0 40 40" fill="none"><rect width="40" height="40" rx="12" fill="url(#lg)"/><path d="M12 14C12 14 16 10 20 10C26 10 28 14 28 18C28 24 20 30 20 30C20 30 12 24 12 18" stroke="#fff" stroke-width="2.2" stroke-linecap="round" fill="none"/><path d="M17 18L20 21L27 14" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/></svg>
+          <span class="logo-text">Diaspora<strong>Connect</strong></span>
+        </a>
+        <p>La solution blockchain pour les transferts d'argent vers le Benin. Frais reduits, rapidite garantie.</p>
+        <div class="footer-social">
+          <a href="#"><i data-lucide="twitter"></i></a>
+          <a href="#"><i data-lucide="linkedin"></i></a>
+          <a href="#"><i data-lucide="github"></i></a>
+        </div>
+      </div>
+      <div class="footer-links"><h4>Produit</h4><ul><li><a href="app.html">Tester l'app</a></li><li><a href="#tarifs">Tarifs</a></li><li><a href="#fonctionnalites">Fonctionnalites</a></li><li><a href="#securite">Securite</a></li></ul></div>
+      <div class="footer-links"><h4>Entreprise</h4><ul><li><a href="#">A propos</a></li><li><a href="#">Equipe</a></li><li><a href="#">Blog</a></li><li><a href="#">Contact</a></li></ul></div>
+      <div class="footer-links"><h4>Legal</h4><ul><li><a href="#">Conditions d'utilisation</a></li><li><a href="#">Politique de confidentialite</a></li><li><a href="#">Mentions legales</a></li></ul></div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 DiasporaConnect — MIABE Hackathon. Tous droits reserves.</span>
+      <span>Projet D02 — Inclusion financiere & DeFi</span>
+    </div>
+  </div>
+</footer>
 
 <script src="script.js"></script>
 </body>

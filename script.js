@@ -1,97 +1,132 @@
 /* ============================================================
-   DiasporaConnect — Interactive Prototype Logic
+   DiasporaConnect — Landing Page Logic
    ============================================================ */
 
 document.addEventListener('DOMContentLoaded', () => {
   if (window.lucide) lucide.createIcons();
 
-  // ===================== PORTAL NAVIGATION =====================
-  const portalSelector = document.getElementById('portalSelector');
-  const diasporaApp = document.getElementById('diasporaApp');
-  const beninApp = document.getElementById('beninApp');
+  // ===================== NAVBAR =====================
+  const navbar = document.getElementById('navbar');
+  const mobileToggle = document.getElementById('mobileToggle');
+  const navLinks = document.getElementById('navLinks');
+  const navActions = document.getElementById('navActions');
 
-  window.openPortal = function(portal) {
-    portalSelector.classList.remove('active-view');
-    diasporaApp.classList.remove('active-view');
-    beninApp.classList.remove('active-view');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 40);
+  });
 
-    if (portal === 'diaspora') {
-      diasporaApp.classList.add('active-view');
-    } else {
-      beninApp.classList.add('active-view');
-    }
-    if (window.lucide) lucide.createIcons();
-  };
-
-  window.showPortalSelector = function() {
-    diasporaApp.classList.remove('active-view');
-    beninApp.classList.remove('active-view');
-    portalSelector.classList.add('active-view');
-  };
-
-  // ===================== SCREEN NAVIGATION =====================
-  window.goScreen = function(screenId) {
-    const appShell = document.getElementById(screenId).closest('.app-shell');
-    const screens = appShell.querySelectorAll('.screen');
-    screens.forEach(s => s.classList.remove('active'));
-
-    const target = document.getElementById(screenId);
-    target.classList.add('active');
-
-    // Update bottom nav
-    const nav = appShell.querySelector('.bottom-nav');
-    const navItems = nav.querySelectorAll('.bnav-item');
-
-    // Mapping screens to nav index
-    const dMap = { 'd-home': 0, 'd-transfer': 1, 'd-summary': 1, 'd-sent': 1, 'd-history': 2, 'd-profile': 3 };
-    const bMap = { 'b-home': 0, 'b-receive': 1, 'b-bills': 2, 'b-withdraw': 3, 'b-profile': -1 };
-    const map = screenId.startsWith('d-') ? dMap : bMap;
-    const activeIdx = map[screenId] ?? -1;
-
-    navItems.forEach((item, i) => {
-      item.classList.toggle('active', i === activeIdx);
+  if (mobileToggle) {
+    mobileToggle.addEventListener('click', () => {
+      mobileToggle.classList.toggle('open');
+      navLinks.classList.toggle('active');
+      navActions.classList.toggle('active');
     });
-
-    // Re-init icons for new screen
-    if (window.lucide) lucide.createIcons();
-  };
+    navLinks?.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        mobileToggle.classList.remove('open');
+        navLinks.classList.remove('active');
+        navActions.classList.remove('active');
+      });
+    });
+  }
 
   // ===================== CALCULATOR =====================
   const rates = { USD: 592, EUR: 655.957, GBP: 746, CAD: 435 };
   const flagMap = { USD: 'us', EUR: 'eu', GBP: 'gb', CAD: 'ca' };
 
-  const dSendAmt = document.getElementById('dSendAmt');
-  const dSendCur = document.getElementById('dSendCur');
-  const dSendFlag = document.getElementById('dSendFlag');
-  const dRecvAmt = document.getElementById('dRecvAmt');
-  const dFee = document.getElementById('dFee');
+  const sendAmt = document.getElementById('sendAmount');
+  const sendCur = document.getElementById('sendCurrency');
+  const sendFlag = document.getElementById('sendFlag');
+  const recvAmt = document.getElementById('receiveAmount');
+  const ourFee = document.getElementById('ourFee');
 
   function fmt(n) { return Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' '); }
 
   function updateCalc() {
-    const amount = parseFloat(dSendAmt.value) || 0;
-    const cur = dSendCur.value;
+    if (!sendAmt) return;
+    const amount = parseFloat(sendAmt.value) || 0;
+    const cur = sendCur.value;
     const rate = rates[cur] || 592;
     const fee = amount * 0.008;
     const received = amount * rate;
 
-    dRecvAmt.textContent = fmt(received);
-    dFee.textContent = fee.toFixed(2).replace('.', ',') + ' ' + cur;
-
-    const code = flagMap[cur] || 'us';
-    dSendFlag.src = `https://flagcdn.com/w40/${code}.png`;
+    recvAmt.textContent = fmt(received);
+    ourFee.textContent = fee.toFixed(2).replace('.', ',') + ' ' + cur;
+    sendFlag.src = `https://flagcdn.com/w40/${flagMap[cur] || 'us'}.png`;
   }
 
-  dSendAmt.addEventListener('input', updateCalc);
-  dSendCur.addEventListener('change', updateCalc);
+  sendAmt?.addEventListener('input', updateCalc);
+  sendCur?.addEventListener('change', updateCalc);
 
-  // Transfer form calc
-  const tfAmount = document.getElementById('tfAmount');
-  const tfRecv = document.getElementById('tfRecv');
-  if (tfAmount && tfRecv) {
-    tfAmount.addEventListener('input', () => {
-      const v = parseFloat(tfAmount.value) || 0;
-      tfRecv.textContent = fmt(v * 655.957);
+  // ===================== FAQ =====================
+  document.querySelectorAll('.faq-trigger').forEach(trigger => {
+    trigger.addEventListener('click', () => {
+      const item = trigger.closest('.faq-item');
+      const wasOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      if (!wasOpen) item.classList.add('open');
     });
+  });
+
+  // ===================== GSAP ANIMATIONS =====================
+  if (window.gsap && window.ScrollTrigger) {
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Hero fade in
+    gsap.from('.hero-badge', { opacity: 0, y: 20, duration: .6, delay: .2 });
+    gsap.from('.hero h1', { opacity: 0, y: 30, duration: .8, delay: .3, ease: 'power3.out' });
+    gsap.from('.hero-subtitle', { opacity: 0, y: 25, duration: .7, delay: .45, ease: 'power3.out' });
+    gsap.from('.calculator', { opacity: 0, y: 40, duration: .8, delay: .6, ease: 'power3.out' });
+    gsap.from('.hero-trust', { opacity: 0, y: 15, duration: .6, delay: .9 });
+    gsap.from('.hero-visual', { opacity: 0, x: 60, duration: 1, delay: .5, ease: 'power3.out' });
+
+    // Stat counter animation
+    document.querySelectorAll('.stat-number').forEach(el => {
+      const target = parseFloat(el.dataset.target);
+      const isDecimal = String(target).includes('.');
+      ScrollTrigger.create({
+        trigger: el,
+        start: 'top 90%',
+        onEnter: () => {
+          gsap.to(el, {
+            innerText: target,
+            duration: 1.5,
+            snap: isDecimal ? { innerText: .1 } : { innerText: 1 },
+            ease: 'power2.out',
+            onUpdate() {
+              const v = parseFloat(el.innerText);
+              el.innerText = isDecimal ? v.toFixed(1) : Math.round(v);
+            }
+          });
+        },
+        once: true
+      });
+    });
+
+    // Section reveal animations
+    document.querySelectorAll('[data-animate]').forEach(el => {
+      const anim = el.dataset.animate;
+      const delay = parseFloat(el.dataset.delay || 0);
+      const props = { opacity: 0, duration: .7, delay, ease: 'power3.out' };
+
+      if (anim === 'fade-up') { props.y = 40; }
+      else if (anim === 'fade-left') { props.x = 40; }
+      else if (anim === 'scale-up') { props.scale = .9; }
+
+      ScrollTrigger.create({
+        trigger: el,
+        start: 'top 88%',
+        onEnter: () => gsap.from(el, props),
+        once: true
+      });
+    });
+
+    // Parallax orbs
+    gsap.to('.orb-1', { y: -80, scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1 } });
+    gsap.to('.orb-2', { y: 60, scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1 } });
+
+    // Phone parallax
+    gsap.to('.phone-main', { y: -30, scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1 } });
+    gsap.to('.phone-secondary', { y: 20, scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1 } });
   }
 });
